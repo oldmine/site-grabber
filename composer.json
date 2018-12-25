@@ -1,0 +1,13 @@
+{
+  "name": "oldmine/site-grabber",
+  "description": "Universal site grabber with module architecture to grab any website",
+  "type": "project",
+  "require": {
+    "oldmine/relative-to-absolute-url": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "oldmine\\SiteGrabber\\": "src"
+    }
+  }
+}
