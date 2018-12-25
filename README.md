@@ -6,7 +6,8 @@ It is universal site parser with module architecture.
 ### Data Loaders
 This module should load data from url and return this.
 
-Today realized data loader which use CURL, you can create another using IDataLoader interface.
+Today realized data loader which use CURL.
+You can create another using IDataLoader interface.
 
 ### Page Handlers
 This module should process page, for example, extract data from page or save this.
