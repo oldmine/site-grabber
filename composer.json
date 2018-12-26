@@ -3,7 +3,8 @@
   "description": "Universal site grabber with module architecture to grab any website",
   "type": "project",
   "require": {
-    "oldmine/relative-to-absolute-url": "dev-master"
+    "oldmine/relative-to-absolute-url": "dev-master",
+    "facebook/webdriver": "^1.6"
   },
   "autoload": {
     "psr-4": {
