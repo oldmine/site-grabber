@@ -6,7 +6,10 @@ It is universal site parser with module architecture.
 ### Data Loaders
 This module should load data from url and return this.
 
-Today realized data loader which use CURL.
+Realized data loaders:
++ CURL Data Loader
++ Selenium Data Loader
+
 You can create another using IDataLoader interface.
 
 ### Page Handlers
@@ -23,7 +26,8 @@ You can create page handler using IPageHandler interface.
 ### Visit Strategies
 This module should visit website pages and return data using provided Data Loader.
 
-Already realized recursively visit strategy.
+Realized visit strategies:
++ Recursively visit strategy.
 
 You can create you strategy using IVisitStrategy interface.
 
@@ -70,7 +74,7 @@ You can create you strategy using IVisitStrategy interface.
     public function getHandledURLs(): array
 
 ## Usage Example
-See [UsageExample.php](UsageExample.php)
+See [UsageExample.php](UsageExample.php), [UsageExampleSelenium.php](UsageExampleSelenium.php)
 
 ## Requirements
 ````
