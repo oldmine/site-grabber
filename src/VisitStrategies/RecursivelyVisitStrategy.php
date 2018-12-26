@@ -60,34 +60,34 @@ class RecursivelyVisitStrategy implements IVisitStrategy
 
     private function getNext(string $pageURL): \Generator
     {
-        //If page with this url is not checked
-        if (!in_array($pageURL, $this->checkedURLs)) {
-            $this->checkedURLs[] = $pageURL;
-            $data = $this->dataLoader->loadHTML($pageURL);
+        if (!empty($pageURL)) {
+            //If page with this url is not checked
+            if (!in_array($pageURL, $this->checkedURLs)) {
+                $this->checkedURLs[] = $pageURL;
+                $data = $this->dataLoader->loadHTML($pageURL);
 
-            //If $pageURL is empty is broken page or url, trying skip and go next
-            if (!empty($pageURL))
                 yield new Page($pageURL, $data);
 
-            $doc = new DOMDocument();
-            @$doc->loadHTML($data);
-            $xpath = new DOMXPath($doc);
-            $tags = $xpath->query('.//a');
-            /**
-             * @var $tag \DOMElement
-             */
-            foreach ($tags as $tag) {
-                $url = $tag->getAttribute('href');
-                $parsed_url = parse_url($url);
-                if (empty($parsed_url['scheme'])) {
-                    //If is relative url
-                    $url = URLExtensions::relativeToAbsolute($this->host, $url);
-                    yield from $this->getNext($url);
-                } else if (!empty($parsed_url['host'])) {
-                    //If is absolute url
-                    if ($parsed_url['host'] == $this->host) {
-                        //If absolute url is under host
+                $doc = new DOMDocument();
+                @$doc->loadHTML($data);
+                $xpath = new DOMXPath($doc);
+                $tags = $xpath->query('.//a');
+                /**
+                 * @var $tag \DOMElement
+                 */
+                foreach ($tags as $tag) {
+                    $url = $tag->getAttribute('href');
+                    $parsed_url = parse_url($url);
+                    if (empty($parsed_url['scheme'])) {
+                        //If is relative url
+                        $url = URLExtensions::relativeToAbsolute($this->host, $url);
                         yield from $this->getNext($url);
+                    } else if (!empty($parsed_url['host'])) {
+                        //If is absolute url
+                        if ($parsed_url['host'] == $this->host) {
+                            //If absolute url is under host
+                            yield from $this->getNext($url);
+                        }
                     }
                 }
             }
